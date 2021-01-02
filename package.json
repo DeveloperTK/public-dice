@@ -1,0 +1,19 @@
+{
+  "name": "public-dice",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DeveloperTK/public-dice.git"
+  },
+  "author": "Christian Schliz (code@foxat.de)",
+  "license": "SEE LICENSE IN LICENSE",
+  "bugs": {
+    "url": "https://github.com/DeveloperTK/public-dice/issues"
+  },
+  "homepage": "https://github.com/DeveloperTK/public-dice#readme"
+}
