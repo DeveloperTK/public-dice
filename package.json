@@ -1,19 +1,27 @@
 {
-  "name": "public-dice",
+  "name": "rpg-online",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "app/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "run": "node app/index.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DeveloperTK/public-dice.git"
+    "url": "git+https://github.com/DeveloperTK/rpg-online.git"
   },
   "author": "Christian Schliz (code@foxat.de)",
   "license": "SEE LICENSE IN LICENSE",
   "bugs": {
-    "url": "https://github.com/DeveloperTK/public-dice/issues"
+    "url": "https://github.com/DeveloperTK/rpg-online/issues"
   },
-  "homepage": "https://github.com/DeveloperTK/public-dice#readme"
+  "homepage": "https://github.com/DeveloperTK/rpg-online#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "http": "0.0.1-security",
+    "https": "^1.0.0",
+    "redis": "^3.0.2",
+    "socket.io": "^3.0.4"
+  }
 }
