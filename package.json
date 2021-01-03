@@ -17,8 +17,10 @@
   },
   "homepage": "https://github.com/DeveloperTK/rpg-online#readme",
   "dependencies": {
+    "connect-redis": "^5.0.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-session": "^1.17.1",
     "http": "0.0.1-security",
     "https": "^1.0.0",
     "redis": "^3.0.2",

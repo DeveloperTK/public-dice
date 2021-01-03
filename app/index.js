@@ -26,12 +26,16 @@ const socketConfig = {
 const redisConfig = {
     port: process.env.REDIS_PORT || 6379,
     host: process.env.REDIS_HOST || '127.0.0.1',
-    password: process.env.REDIS_PASSWORD || 'your password'
+    // password: process.env.REDIS_PASSWORD || '',
 };
 
 // express server
 const express = require('express');
 const app = express();
+
+const path = require('path');
+const session = require('express-session');
+const RedisStore = require('connect-redis')(session);
 
 // http and https endpoints
 const http = require('http').createServer(app);
@@ -54,24 +58,57 @@ redisClient.on('connect', (err) => {
     });
 });
 
+// express session coookie
+app.use(session({
+    store: new RedisStore({ client: redisClient }),
+    secret: process.env.COOKIE_SECRET || 'keyboard cat',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: true }
+}));
+
+// Redirect all requests to secure https connection
+app.use((req, res, next) => {
+    // The 'x-forwarded-proto' check is for Heroku
+    if (!req.secure && req.get('x-forwarded-proto') !== 'https' && process.env.NODE_ENV !== "development")
+        return res.redirect('https://' + req.get('host') + req.url);
+
+    next();
+});
+
+// Room create endpoint
+const createAction = require('./actions/create');
+createAction.init(redisClient);
+app.get('/create', (req, res) => createAction.handler(req, res));
+
+// Room join endpoint
+const joinAction = require('./actions/join');
+joinAction.init(redisClient);
+app.get('/join', (req, res) => joinAction.handler(req, res));
+
 // expressjs webroot
-app.use('/', express.static(__dirname + '/webroot'));
-app.get('/', (req, res) => res.send("it works"));
+app.use(express.static(path.join(__dirname, "../webroot")));
 
 // set up socket events
 require('./socket').init(io, redisClient);
 
+// listen on http port
 http.listen(process.env.HTTP_PORT || 3080, () => {
     console.log('http  listening on *:' + process.env.HTTP_PORT || 3080);
 });
 
+//listen on https port
 https.listen(process.env.HTTPS_PORT || 3443, () => {
     console.log('https listening on *:' + process.env.HTTPS_PORT || 3443);
 });
 
+// catch sigint to close all active connections
 process.on('SIGINT', () => {
-    console.log("\nCaught SIGINT, closing all active connections.");
-    console.log("PID is " + process.pid + " in case it won't stop.");
-    console.log("\nthank you and goodbye");
+    process.stdout.write("\nCaught SIGINT, closing all active socket and redis connections...");
+    io.close();
+    redisClient.quit();
+    process.stdout.write("Done\n");
+    process.stdout.write("PID is " + process.pid + " in case it won't stop.\n");
+    process.stdout.write("\nthank you and goodbye\n");
     process.exit();
 });
