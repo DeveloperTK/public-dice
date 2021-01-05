@@ -1,0 +1,126 @@
+/* general */
+
+@media (max-width: 991px), (max-height: 557px) {
+    #warning {
+        display: block !important;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background: #fff;
+        z-index: 1;
+    }
+
+    #centered-warning-text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        border: .4em solid;
+        border-radius: 1em;
+        padding: .5em;
+    }
+}
+
+nav {
+    height: 3.5em;
+}
+
+main {
+    display: flex;
+    flex-flow: column;
+    height: calc(100vh - 3.5em);
+}
+
+/* .deck */
+
+.deck {
+    flex: 1;
+    min-height: 10px;
+    overflow-y: scroll;
+}
+
+.member-wrapper {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: stretch;
+
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    padding: 1em;
+}
+
+.member-card {
+    margin-left: 1em;
+    margin-bottom: 1em;
+
+    min-width: min(min(25vw, 50vh), 480px);
+    max-width: 100%;
+
+    min-height: min(min(15vw, 15vh), 270px);
+    max-height: min(45vw, 45vh);
+    background: paleturquoise;
+    border: 2px solid black;
+}
+
+/* .self */
+
+.self {
+    border-top: 2px solid black;
+    min-height: 320px;
+}
+
+.dice-card-wrapper {
+    overflow-y: scroll;
+    height: 100%;
+    display: flex;
+    padding-right: 2em;
+}
+
+.die-card {
+    width: 100%;
+    height: 100%;
+    min-width: 400px;
+    padding: 2em 0 2em 2em;
+}
+
+.die-card > .card {
+    width: 100%;
+    height: 100%;
+}
+
+label {
+    margin-bottom: .25em;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.border-left {
+    border-left: 1px dashed black;
+}
+
+#private-solution {
+    height: 148px;
+    overflow-x: scroll;
+}
+
+#private-die-result {
+
+}
+
+/* Here is the animation (keyframes) */
+@keyframes fading {
+    0% { color: black; }
+    16.6% { color: red; }
+    33.2% { color: darkred; }
+    49.8% { color: red; }
+    66.4% { color: darkred; }
+    83% { color: red; }
+    100% { color: black; }
+}

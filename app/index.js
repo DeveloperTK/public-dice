@@ -1,3 +1,5 @@
+console.log("Loading environment variables from .env file");
+
 // Get environment variables from .env file
 const dotenv = require('dotenv');
 dotenv.config();
@@ -29,6 +31,16 @@ const redisConfig = {
     // password: process.env.REDIS_PASSWORD || '',
 };
 
+// set the right webroot directory
+const webrootDirectoryName = (process.env.NODE_ENV === "development") ? "webroot" : "webroot-dist";
+console.log("");
+console.log("Starting in mode " + (process.env.NODE_ENV || "production") + " with configs:");
+console.log("\tssl:\t" + Boolean(credentials));
+console.log("\tsocket:\t" + JSON.stringify(socketConfig));
+console.log("\tredis:\t" + JSON.stringify(redisConfig));
+console.log("");
+console.log("Using directory " + webrootDirectoryName + " on path /");
+
 // express server
 const express = require('express');
 const app = express();
@@ -46,6 +58,7 @@ const io = require('socket.io')(http, socketConfig);
 
 // redis conenction instance
 const redisClient = require('redis').createClient(redisConfig);
+
 redisClient.on('connect', (err) => {
     if (err) throw err;
     redisClient.set("control_check_connection", "Redis Connection OK!");
@@ -57,6 +70,8 @@ redisClient.on('connect', (err) => {
         }
     });
 });
+
+redisClient.on('error', console.error);
 
 // express session coookie
 app.use(session({
@@ -76,18 +91,21 @@ app.use((req, res, next) => {
     next();
 });
 
+// External resources directory
+app.use('/resources', express.static(path.join(__dirname, '../resources')));
+
 // Room create endpoint
 const createAction = require('./actions/create');
 createAction.init(redisClient);
-app.get('/create', (req, res) => createAction.handler(req, res));
+app.get('/create', createAction.handler);
 
 // Room join endpoint
 const joinAction = require('./actions/join');
 joinAction.init(redisClient);
-app.get('/join', (req, res) => joinAction.handler(req, res));
+app.get('/join', joinAction.handler);
 
 // expressjs webroot
-app.use(express.static(path.join(__dirname, "../webroot")));
+app.use(express.static(path.join(__dirname, "../" + webrootDirectoryName)));
 
 // set up socket events
 require('./socket').init(io, redisClient);

@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <title>RPG Online</title>
 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <!-- CSS only -->
-    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+    <link crossorigin="anonymous" href="/resources/bootstrap.min.css"
           integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" rel="stylesheet">
 
     <style>
@@ -21,6 +23,14 @@
             .bd-placeholder-img-lg {
                 font-size: 3.5rem;
             }
+        }
+
+        .margin-bottom {
+            margin-bottom: .5rem;
+        }
+
+        .margin-top {
+            margin-top: 1rem;
         }
 
         /*
@@ -85,7 +95,7 @@
 <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
     <header class="mb-auto">
         <div>
-            <h3 class="float-md-start mb-0">RPG Online</h3>
+            <h3 class="float-md-start margin-bottom">RPG Online</h3>
             <nav class="nav nav-masthead justify-content-center float-md-end">
                 <a aria-current="page" class="nav-link active" href="#">Home</a>
                 <a class="nav-link" href="/create">Erstellen</a>
@@ -99,9 +109,10 @@
         <p class="lead">RPG Online ist ein kostenfreies Portal, mit dem du deine online Pen and Paper Rollenspiel
             Sitzungen interessanter gestalten kannst.</p>
         <p class="lead">
-            <a class="btn btn-lg btn-secondary fw-bold border-white bg-white" href="/create">Erstelle einen Raum</a>
-            <a class="btn btn-lg btn-dark border-white fw-bold" href="https://github.com/DeveloperTK/rpg-online">View on
-                GitHub</a>
+            <a class="btn btn-lg btn-secondary fw-bold border-white bg-white margin-top"
+               href="/create">Erstelle einen Raum</a>
+            <a class="btn btn-lg btn-dark border-white fw-bold margin-top"
+               href="https://github.com/DeveloperTK/rpg-online">View on GitHub</a>
         </p>
     </main>
 
@@ -129,12 +140,9 @@
     </div>
 </div>
 
-<script crossorigin="anonymous" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
-        src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
-
 <!-- Bootstrap JavaScript Bundle with Popper -->
 <script crossorigin="anonymous" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+        src="/resources/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
